@@ -9,7 +9,7 @@ def cargar_parqueos(fecha):
             with open(archivo, 'r') as f:
                 return json.load(f)
         except json.JSONDecodeError:
-            print(f"Error: El archivo {archivo} está corrupto. Inicializando nuevo estado.")
+            print(f"❌ Error: El archivo {archivo} está corrupto. Inicializando nuevo estado.")
             return inicializar_parqueos()
     return inicializar_parqueos()
 
@@ -20,7 +20,7 @@ def guardar_parqueos(parqueos, fecha):
         with open(archivo, 'w') as f:
             json.dump(parqueos, f, indent=4)
     except Exception as e:
-        print(f"Error al guardar el archivo {archivo}: {e}")
+        print(f"❌ Error al guardar el archivo {archivo}: {e}")
 
 def inicializar_parqueos():
     """Crea la estructura de diccionarios con todos los espacios en 'disponible'."""
