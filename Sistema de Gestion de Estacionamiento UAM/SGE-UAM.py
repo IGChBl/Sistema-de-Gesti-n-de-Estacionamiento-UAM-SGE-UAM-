@@ -91,11 +91,11 @@ def mostrar_estado(parqueos, fecha):
     """Muestra el estado actual de los parqueos con una representación ilustrativa."""
     print(f"\n--- ESTADO ACTUAL DE LOS PARQUEOS ({fecha}) ---\n")
 
-    # Configuración de las dimensiones de la cuadrícula para cada parqueo
+    # Configuración de las dimensiones de la cuadrícula (10 columnas por fila)
     grid_config = {
-        "A": {"spaces": 30, "cols": 6, "rows": 5},  # 5 filas x 6 columnas = 30
-        "B": {"spaces": 50, "cols": 10, "rows": 5},  # 5 filas x 10 columnas = 50
-        "C": {"spaces": 20, "cols": 5, "rows": 4}   # 4 filas x 5 columnas = 20
+        "A": {"spaces": 30, "cols": 10},
+        "B": {"spaces": 50, "cols": 10},
+        "C": {"spaces": 20, "cols": 10}
     }
 
     for parqueo in parqueos:
@@ -103,25 +103,23 @@ def mostrar_estado(parqueos, fecha):
         
         # Generar la cuadrícula
         cols = grid_config[parqueo]["cols"]
-        rows = grid_config[parqueo]["rows"]
-        spaces = sorted(parqueos[parqueo].keys())  # Ordenar espacios (A1, A2, ...)
+        total_spaces = grid_config[parqueo]["spaces"]
+        spaces = sorted(parqueos[parqueo].keys(), key=lambda x: int(x[1:]))  # Ordenar numéricamente por número
+        rows = (total_spaces + cols - 1) // cols  # Calcular número de filas
         
-        print("\nCuadrícula de espacios (🅿️ = Disponible, 🚗 = Ocupado):\n")
+        print("\nCuadrícula de espacios ([D] = Disponible, [O] = Ocupado):\n")
         for row in range(rows):
-            # Línea de etiquetas de espacio
-            labels = []
-            statuses = []
-            for col in range(cols):
-                idx = row * cols + col
-                if idx < len(spaces):
-                    espacio = spaces[idx]
-                    labels.append(f"{espacio:<4}")  # Alinea etiquetas
-                    statuses.append("🅿️" if parqueos[parqueo][espacio] == "disponible" else "🚗")
-                else:
-                    labels.append(" " * 4)
-                    statuses.append(" ")
-            print(" ".join(labels))
-            print(" ".join(statuses))
+            start_idx = row * cols
+            end_idx = min((row + 1) * cols, total_spaces)
+            labels = [spaces[i] if i < len(spaces) else "" for i in range(start_idx, end_idx)]
+            statuses = [parqueos[parqueo][space] if space else "" for space in labels]
+            statuses = ["[D]" if status == "disponible" else "[O]" if status == "ocupado" else "" for status in statuses]
+            
+            # Alinear etiquetas y estados con padding adecuado
+            label_line = " ".join(f"{label:<6}" for label in labels)
+            status_line = " ".join(f"{status:<6}" for status in statuses)
+            print(label_line)
+            print(status_line)
             print()  # Línea en blanco entre filas
 
         # Resumen numérico y listas
