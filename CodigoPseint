@@ -48,4 +48,94 @@ Algoritmo AutomaticParking
 				De Otro Modo:
 					Escribir "La opcion asignada no es valida"
 					
-		
+			FinSegun
+			si rolN=1 Entonces
+				rol="usuario"
+			SiNo
+				rol="Administrador"
+			FinSi
+			Limpiar Pantalla
+			Escribir "Nombre de usuario registrado: ",usuario
+			Escribir "Correo registrado : ",correo
+			Escribir "Su contraseña: ",password
+			Escribir "Su rol asignado: ",rol
+		2:
+			Repetir
+				Escribir "Digite su nombre de usuario(Se le pedira reingresar su nombre si es incorrecto)"
+			    leer usuarioing
+			Hasta Que usuarioing=usuario
+			Repetir
+				Escribir "Digite su correo (se le pedira nuevamente si es incorrecto)"
+				Leer correoing
+			Hasta Que correoing=correo
+			
+			Repetir
+				Escribir "Digite su contraseña (se le pedira nuevamente si es incorrecto)"
+				Leer passing
+			Hasta Que passing=password
+			Repetir
+				Escribir "Digite su rol Usuario o Administrador (se le pedira nuevamente si es incorrecto)"
+				Leer roling
+			Hasta Que roling=rol
+			Escribir "Se ha iniciado sesion con exito"
+			
+			// Mostrar menú de usuario
+			Escribir '======================================'
+			Escribir '      SISTEMA DE PARQUEO - U. XYZ     '
+			Escribir '======================================'
+			Escribir '1. Ingresar vehículo'
+			Escribir '2. Salida de vehículo'
+			Escribir '3. Mostrar espacios disponibles'
+			Escribir '4. Salir'
+			Escribir '--------------------------------------'
+			Escribir 'Seleccione una opción: '
+			Leer opcion
+			Segun opcion Hacer
+				1:
+					Si espacios_disponibles>0 Entonces
+						espacios_disponibles <- espacios_disponibles-1
+						Escribir ' Vehículo ingresado.'
+						Escribir ' Espacios restantes: ', espacios_disponibles
+					SiNo
+						Escribir ' Parqueo lleno. No hay espacios disponibles.'
+					FinSi
+				2:
+					Si espacios_disponibles<10 Entonces
+						espacios_disponibles <- espacios_disponibles+1
+						Escribir ' Vehículo salió.'
+						Escribir ' Espacios disponibles: ', espacios_disponibles
+					SiNo
+						Escribir ' El parqueo ya está vacío. No hay vehículos para salir.'
+					FinSi
+				3:
+					Escribir ' Espacios disponibles actualmente: ', espacios_disponibles
+				4:
+					Escribir ' Saliendo del sistema. ¡Hasta luego!'
+				expresion:
+				De Otro Modo:
+					Escribir ' Opción no válida. Intente de nuevo.'
+			FinSegun
+			
+		3:
+			Escribir "Digite su nuevo nombre de usuario"
+			Leer usuario
+			Escribir "Digite su nuevo correo electronico"
+			leer correo
+			Escribir "Digite su nueva contraseña"
+			leer password
+			Escribir "Seleccione el nuevo rol que desea tomar"
+			Escribir '--------------------------------------'
+			Escribir "1. usuario "
+			Escribir "2. admin "
+			Escribir '--------------------------------------'
+			leer rolN
+			segun rolN Hacer
+				1:
+					Escribir "Se ha asignado el rol de usuario"
+				2:
+					Escribir "Se ha asignado el rol de administrador"
+				De Otro Modo:
+					Escribir "La opcion asignada no es valida"
+					
+			FinSegun
+			
