@@ -1,32 +1,55 @@
 import json
 import os
+from datetime import datetime
 
+data_dir = 'data'
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+
+def _path(name):
+    return os.path.join(data_dir, name)
+
+# Persistencia de parqueos por fecha
 def cargar_parqueos(fecha):
-    """Carga el estado de los parqueos desde un archivo JSON para la fecha dada."""
-    archivo = f"parking_{fecha}.json"
+    archivo = _path(f"parking_{fecha}.json")
     if os.path.exists(archivo):
         try:
             with open(archivo, 'r') as f:
                 return json.load(f)
         except json.JSONDecodeError:
-            print(f"❌ Error: El archivo {archivo} está corrupto. Inicializando nuevo estado.")
             return inicializar_parqueos()
     return inicializar_parqueos()
 
 def guardar_parqueos(parqueos, fecha):
-    """Guarda el estado de los parqueos en un archivo JSON para la fecha dada."""
-    archivo = f"parking_{fecha}.json"
-    try:
-        with open(archivo, 'w') as f:
-            json.dump(parqueos, f, indent=4)
-    except Exception as e:
-        print(f"❌ Error al guardar el archivo {archivo}: {e}")
+    archivo = _path(f"parking_{fecha}.json")
+    with open(archivo, 'w') as f:
+        json.dump(parqueos, f, indent=4, default=str)
 
 def inicializar_parqueos():
-    """Crea la estructura de diccionarios con todos los espacios en 'disponible'."""
-    parqueos = {
-        "A": {f"A{i}": "disponible" for i in range(1, 31)},
-        "B": {f"B{i}": "disponible" for i in range(1, 51)},
-        "C": {f"C{i}": "disponible" for i in range(1, 21)}
+    return {
+        'A': {f'A{i}':'disponible' for i in range(1,31)},
+        'B': {f'B{i}':'disponible' for i in range(1,51)},
+        'C': {f'C{i}':'disponible' for i in range(1,21)},
     }
-    return parqueos
+
+# Usuarios
+def cargar_usuarios():
+    archivo = _path('users.json')
+    if os.path.exists(archivo):
+        return json.load(open(archivo))
+    return {}
+
+def guardar_usuarios(users):
+    archivo = _path('users.json')
+    json.dump(users, open(archivo, 'w'), indent=4)
+
+# Historial
+def cargar_historial():
+    archivo = _path('history.json')
+    if os.path.exists(archivo):
+        return json.load(open(archivo))
+    return []
+
+def guardar_historial(hist):
+    archivo = _path('history.json')
+    json.dump(hist, open(archivo, 'w'), indent=4)

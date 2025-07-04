@@ -1,0 +1,18 @@
+{
+    "ivch5522": {
+        "name": "Ivan",
+        "surname": "Chavarria",
+        "cif": "15021113",
+        "username": "ivch5522",
+        "password": "Hannover96!",
+        "role": "estudiante"
+    },
+    "jjgradiz": {
+        "name": "Jeremy",
+        "surname": "Gradiz",
+        "cif": "25010222",
+        "username": "jjgradiz",
+        "password": "ADMIN2025",
+        "role": "administrador"
+    }
+}
