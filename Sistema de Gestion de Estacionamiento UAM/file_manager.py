@@ -2,8 +2,7 @@ import json
 import os
 from datetime import datetime
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-data_dir = os.path.join(BASE_DIR, 'data')
+data_dir = 'data'
 if not os.path.exists(data_dir):
     os.makedirs(data_dir)
 
